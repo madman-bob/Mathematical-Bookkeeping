@@ -1,0 +1,39 @@
+\section{What's ``double'' about double-entry?}
+
+The name of double-entry bookkeeping comes from the recognition that transactions have both a source, and a destination.
+Therefore, a standard transaction, with one source, and one destination, must be written down twice, once for each account.
+In a very literal sense, the entry is doubled.
+
+Similarly, we could recognize that, in a transaction, the value has to come from somewhere, and it has to go somewhere.
+A kind of ``Conservation of Value'', if you will (to take inspiration from physics naming conventions),
+or ``Fundamental Theorem of Accounting'' (to take inspiration from mathematics naming conventions).\footnotemark
+\footnotetext{
+Though with the Fundamental Theorems of Algebra and Arithmetic, I think mathematics has enough FTAs.
+}
+
+\begin{theorem}
+    The total value in a financial system is the same before and after a transaction,
+    where the total value of a system, with a financial state $f$ and set of accounts $\A$, is given by
+    \begin{equation*}
+        \sum_{A \in \A} f_A.
+    \end{equation*}
+\end{theorem}
+
+\begin{proof}
+    Let $f$ be a financial state, $t$ a transaction, and $\A$ the set of accounts.
+
+    Then the total value of the financial system after the transaction is $\sum_{A \in \A} (f + t)_A$.
+    This gives
+    \begin{align*}
+        \sum_{A \in \A} (f + t)_A &= \sum_{A \in \A} f_A + \sum_{A \in \A} t_A, && \text{rearranging the sum,} \\
+        &= \sum_{A \in \A} f_A + 0, && \text{by definition of a transaction,} \\
+        &= \sum_{A \in \A} f_A.
+    \end{align*}
+\end{proof}
+
+Note that we could equally define transactions as value preserving changes in financial states,
+and then derive the current definition from that.
+
+For more complicated transactions, we can have more than two non-zero entries,
+so perhaps the name ``double'' is a bit of a misnomer.
+On the other hand, we still require a balance between the ``debits'' and ``credits'', which is a sort of doubling up of values.

@@ -1,0 +1,37 @@
+\section{More Transaction Types}
+
+Temporal transactions can represent in a single object things that would be represented by multiple transactions classically.
+For example, consider straight-line appreciation, where we appreciate with transaction $t$ at equally spaced times $\tau_1$, $\tau_2$, ..., $\tau_n$.
+This could be represented by a collection of step transactions $\left\{t^{\tau_i}\right\}_{i = 1}^n$,
+or it could also be represented by a single temporal transaction $t'$, given by
+\begin{equation*}
+    t'(\tau) = \sum_{\tau_i} t^{\tau_i}(\tau).
+\end{equation*}
+
+If we increase the frequency of the step transactions, while keeping the final change the same,
+we can approximate the appreciation occurring continuously with time.
+
+Indeed, given appropriate operations on times,
+we can define a continuous straight-line appreciation $l$ of value $a$, from time $\tau_1$ to $\tau_2$,
+as a function $\Ti \to \V$, such that $l$ at time $\tau$ is given by
+
+\begin{equation*}
+    l(\tau) =
+    \begin{cases}
+        0 & \tau < \tau_1 \\
+        \frac{\tau - \tau_1}{\tau_2 - \tau_1} a & \tau_1 \le \tau < \tau_2 \\
+        a & \tau \ge \tau_2
+    \end{cases}.
+\end{equation*}
+
+Other forms of appreciation, depreciation, and amortization may be represented classically as a collection of step transactions,
+and so may also be represented as a single temporal transaction by adding together the component step transactions.
+
+By taking smaller and smaller time steps, we may then approximate the continuous time equivalents.
+These continuous time equivalents may usually be represented by simple functions $\Ti \to \V$.
+For example, straight-line is a linear function on it's period of influence,
+double-declining is piecewise exponential and linear,
+sum-of-years-digits is quadratic,
+and so on.
+
+Notably this method doesn't work for units-of-production depreciation, as the amount to depreciate by is not known in advance.

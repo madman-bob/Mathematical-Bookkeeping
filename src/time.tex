@@ -1,0 +1,45 @@
+\section{Time}
+
+So we now have transactions, and a way of combining them (addition).
+But the order in which these transactions occur is still important, as (for example) you can't sell goods before you own them.
+We could just take a list of the transactions, but then we forget when exactly something happened,
+which may be important for reporting purposes.
+
+So we probably want to record our transactions with some sort of timestamp.
+So we need some concept of time.
+
+\begin{definition}
+    Let our set of \emph{times} $\Ti$ be a total order.
+\end{definition}
+
+But if we want to add together multiple transactions with different timestamps,
+then we need to extend our space of transactions to allow transactions that take different values at different times.
+
+\begin{definition}
+    Let a \emph{temporal transaction} be a function $\Ti \to \Tr$ from time to transactions.
+
+    Define the various transaction operations on temporal transactions pointwise.
+    We say a temporal transaction $t$ \emph{involves} an account $A$, if there is a time $\tau$, with $t(\tau)_A \neq 0$.
+\end{definition}
+
+The most natural class of temporal transactions are changes that takes place instantaneously, at a certain point in time.
+Let's call these step transactions.
+
+\begin{definition}
+    For a transaction $t$, and a time $\tau$, define the \emph{step transaction} $t^\tau$ to be the temporal transaction given by
+
+    \begin{equation*}
+        t^\tau(\tau') =
+        \begin{cases}
+            0 & \tau' < \tau \\
+            t & \tau' \ge \tau
+        \end{cases}
+    \end{equation*}
+
+    for all times $\tau'$.
+\end{definition}
+
+Note that classic double-entry bookkeeping uses only step transactions, as transactions are applied instantaneously.
+More complicated transactions are then represented by multiple step transactions.
+Temporal transactions, on the other hand, allow a much richer description of how transactions take place.
+We will consider some more complicated examples of temporal transactions later.

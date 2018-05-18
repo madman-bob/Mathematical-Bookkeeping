@@ -1,0 +1,80 @@
+\section{Transactions}
+
+Now that we've got our entities and values, the natural question to ask is how much each person has.
+The state of a financial system, as it were.
+
+\begin{definition}
+    A \emph{financial state} $f$ is a vector, with values in $\V$, and indexed by $\A$.
+\end{definition}
+
+A financial state represents the state of an entire financial system at a point in time.
+It includes the total value owned by each of the entities involved in the system.
+
+But a financial state can also represent a change in the state of a financial system.
+Adding our vectors together then represents applying that change to the system.
+
+For a transaction, the same amount of ``stuff'' exists before as after.
+This motivates the following definition.
+
+\begin{definition}
+    A \emph{transaction} $t$ is a financial state, with
+
+    \begin{equation*}
+        \sum_{A \in \A} t_A = 0.
+    \end{equation*}
+
+    Let $\Tr$ be the set of transactions.
+\end{definition}
+
+As ``positives'' (debits) and ``negatives'' (credits) cancel each other out,
+this is saying that the total of the debits is the same as the total of the credits,
+a notion familiar from double-entry bookkeeping.
+
+\begin{example}
+    Suppose we have three accounts, $A$, $B$, and $C$, and index our vectors respectively.
+
+    Then the financial state where $A$ has $\pounds 10$, $B$ has $\pounds 5$, and $C$ has nothing is represented by
+    \begin{equation}
+        \label{example-financial-state}
+        (\pounds 10, \pounds 5, \pounds 0),
+    \end{equation}
+
+    and the transaction of $\pounds 5$ from $A$ to $C$ is represented by
+    \begin{equation}
+        \label{example-transaction}
+        (-\pounds 5, \pounds 0, \pounds 5).
+    \end{equation}
+
+    So if we were to start at financial state \eqref{example-financial-state}, and then apply transaction \eqref{example-transaction},
+    we would be in the financial state represented by
+    \begin{align}
+        \begin{split}
+            \label{example-transaction-application}
+            (\pounds 10, \pounds 5, \pounds 0) + (-\pounds 5, \pounds 0, \pounds 5) &= (\pounds 10 - \pounds 5, \pounds 5 + \pounds 0, \pounds 0 + \pounds 5), \\
+            &= (\pounds 5, \pounds 5, \pounds 5).
+        \end{split}
+    \end{align}
+    That is, all accounts have $\pounds 5$.
+\end{example}
+
+This notation is a little clunky, so let's rephrase to make things easier.
+
+\begin{notation}
+    For a value $a \in \V$, and accounts $A, B \in \A$,
+    I define $a_A$ to be the financial state with amount $a$ for account $A$, and $0$ elsewhere.
+    Further, I define $a_{A \to B} = a_B - a_A$.
+\end{notation}
+
+Note that $a_{A \to B}$ represents a transaction transferring amount $a$ from account $A$, to account $B$.
+
+\begin{example}
+    Rephrasing the transaction application \eqref{example-transaction-application} with our new notation, we have
+
+    \begin{align*}
+        (\pounds 10_A + \pounds 5_B) + (\pounds 5_{A \to C}) &= (\pounds 10 - \pounds 5)_A + \pounds 5_B + \pounds 5_C, \\
+        &= \pounds 5_A + \pounds 5_B + \pounds 5_C.
+    \end{align*}
+\end{example}
+
+This notation also allows us to define things locally,
+in the sense that we only need to know about the accounts involved in the transaction.

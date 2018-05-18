@@ -1,0 +1,24 @@
+\section{Conclusion}
+
+This provides the beginnings of a formalized treatment of mathematical bookkeeping,
+which allow us to describe a bookkeeping system, and prove common accounting results.
+
+We should note that this formalization is far from complete, though.
+For example, we have made no formal definition of debits and credits.
+Indeed, everything we've done in this paper can be phrased without mentioning either of those two words.
+We could introduce this concept by adding a lattice ordering to value spaces, and then prove results about debits and credits.
+
+Similarly, we have made no distinction between different sorts of accounts,
+so we cannot even state, let alone prove, the accounting equation.
+Though once we have, it follows easily from the total balance of the balance account being $0$.
+
+We have barely touched on the formal definition of time, defining it only as a total order,
+and glossing over the operations required for continuous time appreciations.
+What continuity restrictions do we want on transactions, and do we want any completeness restrictions on time?
+
+If we go so far as to encode our stock control in our bookkeeping system,
+then we can no longer trivially do a business valuation.
+We could instead introduce valuation functions, to measure the value of our business, as linear maps between value spaces.
+
+Finally, for real world applications, we need to consider how these objects would be represented in computer systems,
+and what algorithms we would use to manipulate them.

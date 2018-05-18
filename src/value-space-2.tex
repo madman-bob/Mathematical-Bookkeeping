@@ -1,0 +1,120 @@
+\section{Multi-dimensional value space}
+
+\subsection{Product money space}
+
+Unfortunately, there is more than one type of money, and we can also trade in goods not generally considered as money.
+These different commodities are not directly compatible, in an ``apples and oranges'' manner.
+
+\begin{example}
+    If we consider the money spaces
+    \begin{equation*}
+        \pounds = \{ \pounds 0.00, \pounds 0.01, \pounds 0.02, ... \}, \text{and}
+    \end{equation*}
+    \begin{equation*}
+        \$ = \{ \$ 0.00, \$ 0.01, \$ 0.02, ... \},
+    \end{equation*}
+    then $\pounds 10$ is not interchangeable with any amounts of $\$$.\footnotemark
+    \footnotetext{
+    If your first reaction involves the phrase ``exchange rate'',
+    then note that you're exchanging the $\pounds 10$ \emph{with someone}.
+    So what you're actually doing is a transaction where you're purchasing some amount of $\$$ for $\pounds 10$.
+    You can't change $\pounds 10$ to some amount of $\$$ without getting someone else involved.
+    }
+\end{example}
+
+If we have two different money spaces, $\M_1$, and $\M_2$,
+then we might want to define the money space consisting of \emph{both} the monies $\M_1$ and $\M_2$.
+But to make this new space a money space, we'd also have to include all possible sums of values from both these spaces.
+Mathematically, this is known as the product space (product as in multiplication, rather than something you sell).
+
+\begin{definition}
+    Given two money spaces $\M_1$, and $\M_2$, we define the \emph{product money space} $\M_1 \times \M_2$ to be the set of pairs $(m_1, m_2)$,
+    with $m_1 \in \M_1$, and $m_2 \in \M_2$.
+
+    Further, we make the product money space into a money space by defining addition component-wise.
+    \begin{equation*}
+        (m_1, m_2) + (n_1, n_2) = (m_1 + n_1, m_2 + n_2).
+    \end{equation*}
+\end{definition}
+
+\begin{example}
+    For the above money spaces of $\pounds$ and $\$$, the product money space is
+    \begin{equation*}
+        \begin{array}{ll}
+            \pounds \times \$ = \{ \\
+            & \begin{matrix}
+                  (\pounds 0.00, \$ 0.00), & (\pounds 0.00, \$ 0.01), & (\pounds 0.00, \$ 0.02), & \dots \\
+                  (\pounds 0.01, \$ 0.00), & (\pounds 0.01, \$ 0.01), & (\pounds 0.01, \$ 0.02), & \dots \\
+                  (\pounds 0.02, \$ 0.00), & (\pounds 0.02, \$ 0.01), & (\pounds 0.02, \$ 0.02), & \dots \\
+                  \vdots & \vdots & \vdots & \ddots
+            \end{matrix} \\
+            \}.
+        \end{array}
+    \end{equation*}
+\end{example}
+
+By repeating this process, we can make money spaces out of arbitrarily many smaller money spaces.
+
+Similarly to transactions, product money spaces require you to know the shape of the whole space to be able to write down an element of it.
+So we introduce analogous notation to allow you to express monies in product money spaces locally, without needing to know all components.
+
+\begin{notation}
+    We identify the monies of the two spaces with the appropriate subspaces of the product money space
+    \begin{equation*}
+        m_1 \mapsto (m_1, 0),
+        m_2 \mapsto (0, m_2)
+    \end{equation*}
+    for all $m_1 \in \M_1$, and $m_2 \in \M_2$.
+\end{notation}
+
+\begin{example}
+    Then, in the space $\pounds \times \$$, we can write things like $\pounds 10 + \$ 10$ to mean $(\pounds 10, \$ 10)$ as
+    \begin{align*}
+        \pounds 10 + \$ 10 &= (\pounds 10, \$ 0) + (\pounds 0, \$ 10) \\
+        &= (\pounds 10, \$ 10)
+    \end{align*}
+\end{example}
+
+\subsection{Product value space}
+
+We can similarly define the combination of two value spaces,
+and show that the value space of a product space is essentially the same as the product space of a value space.
+
+\begin{definition}
+    Given two value spaces $\V_1$, and $\V_2$, we define the \emph{product value space} $\V_1 \times \V_2$ to be the set of pairs $(v_1, v_2)$,
+    with $v_1 \in \V_1$, and $v_2 \in \V_2$.
+
+    Further, we define value space operations on $\V_1 \times \V_2$ componentwise.
+\end{definition}
+
+\begin{theorem}
+    If we have two money spaces $\M_1$, and $\M_2$, with corresponding value spaces $\V_1$, and $\V_2$,
+    then the value space $\V$ of the product money space $\M_1 \times \M_2$
+    is isomorphic to $\V_1 \times \V_2$.
+\end{theorem}
+
+\begin{proof}
+    The isomorphism is given by
+    \begin{equation*}
+        \taccount{(m_1, m_2)}{(m'_1, m'_2)} \mapsto \left(\taccount{m_1}{m'_1}, \taccount{m_2}{m'_2}\right).
+    \end{equation*}
+    Proof that this is an isomorphism is omitted, as it is long winded, but unenlightening.
+\end{proof}
+
+This shows that we can take products of spaces and value spaces of money spaces in any order, without risking confusion.
+
+\subsection{Non-standard money types}
+
+As well as freely adding money types, we can consider types that we do not normally think of as monies.
+
+In classical double entry bookkeeping, the purchase of an asset decreases the balance of our cash account, and increases the balance of our assets account by the same amount.
+But this really represents a transfer of money to some external entity, in exchange for that asset.
+So we can instead encode the asset as a new money type, and have the transaction as a literal exchange of cash for asset.
+
+\begin{example}
+    For example, a transaction where I buy a sheep from Fred for $\pounds 100$ could be represented by
+
+    \begin{equation*}
+        \sheep_{\fred \to \me} + \pounds 100_{\me \to \fred}.
+    \end{equation*}
+\end{example}

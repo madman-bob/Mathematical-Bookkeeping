@@ -1,0 +1,46 @@
+\section{Account Personification}
+
+The use of a sheep as a money type doesn't seem to make sense from the classical accounting point of view,
+as a sheep is not a persistent store of value.
+If I have a sheep, and the sheep dies, then there is no longer a sheep.
+So how can we represent it in our bookkeeping system, if one day it will disappear?
+
+This seeming contradiction can be resolved by considering the death of the sheep as another sort of transaction.
+If we personify of the process of death, say by creating an account called $\death$,
+then we can represent the death of the sheep by transferring the sheep from ourselves, to $\death$.
+
+\begin{example}
+    The death of a sheep could be represented by
+    \begin{equation*}
+        \sheep_{\me \to \death}.
+    \end{equation*}
+\end{example}
+
+We can also use this idea for other sorts of processes.
+
+\begin{example}
+    As an example where we are receiving something from a process, consider lambing season.
+    \begin{equation*}
+        10 \sheep_{\operatorname{Mother\,Nature} \to \me}
+    \end{equation*}
+\end{example}
+
+We can even have a transaction where we exchange some things for others.
+
+\begin{example}
+    For an example transaction with a process with movement in both directions,
+    consider the construction of a chair.
+    \begin{equation*}
+        (
+        3 \operatorname{Planks\,of\,wood} +
+        4 \operatorname{Nails} +
+        5 \operatorname{Man\,Hours}
+        )_{\me \to \operatorname{Carpentry}} +
+        1 \operatorname{Chair}_{\operatorname{Carpentry} \to \me}
+    \end{equation*}
+\end{example}
+
+This allows you to encode your stock control into your bookkeeping system, by setting up a money type for each type of stock.
+By increasing the level of detail you use for your money types, you can record more information about your stock.
+For example, for the sheep above, you could encode them as Animals, as Sheep,
+or you could even set up a money type for every individual sheep, allowing you to track each one precisely.

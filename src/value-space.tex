@@ -1,0 +1,102 @@
+\section{Value}
+
+\subsection{Money Space}
+
+To start talk of bookkeeping, we fist need a thing to keep track of -- some concept of money.
+What ``money'' actually means to us depends on our specific circumstances, but let's call the set of all possible monies $\M$.
+
+\begin{example}
+    For example, if the only money we accept is the GBP, then our money space would be
+
+    \begin{equation}
+        \label{m-def}
+        \M = \{ \pounds 0.00, \pounds 0.01, \pounds 0.02, ... \}.
+    \end{equation}
+\end{example}
+
+The smallest amount of money we can have is nothing,
+and the primitive operation we can do with our money is to add it together.
+If we have one pile of money, and another pile of money, then we can put them together into a bigger pile of money.
+
+So we want some operation $+$, that allows us to add values together in the way that we expect,
+and some value $0$, which represents the value of nothing.
+Mathematically,
+
+\begin{definition}
+    A \emph{value space} $\M$ is a commutative monoid.
+\end{definition}
+
+I'm glossing over the precise definition of a commutative monoid here, as, from an accounting perspective,
+everything works as you expect from the analogy of piles of money on the floor.
+More details on monoids may be found in any introductory work on algebraic structures, such as \cite{monoids}.
+
+% Do we want to include 0?
+%   Doesn't matter. Simplifies some things to include it, but can work around it
+%     Get 0 for free in value space, as 0 = (a, a), for some `a`.
+%     Normaly identify `a` with (a, 0), but could instead use (a + a, a)
+% Do we want two values to collapse to the same value in the Pacioli group?
+%   eg. Define 0' by 0' + a = a = a + 0' \forall a != 0, and 0' + 0 = 0' = 0 + 0'
+%   Then 0' != 0 in \M, but 0' == 0 in \V.
+
+\subsection{Value Space}
+
+But companies do more than just take money\footnotemark.
+\footnotetext{We hope}
+They also need to purchase raw materials, and pay employees.
+So we need some way to represent not only the money, but also whether it's a gain, or a loss.
+
+Naively, we want to add a $-$ operation to $\M$, so that we can take some money from another amount.
+But in order for this to make sense, we need to add negative numbers to our space as well (so we can do things like $\pounds 0 - \pounds 10$).
+
+Historically, western mathematicians were uncomfortable with the concept of negative numbers \cite{arithmetica},
+and so instead the concepts of debits and credits were used.
+These two methods are, in fact equivalent, as shown by the Pacioli group, as defined in Ellerman, \emph{On Double Entry Bookkeeping} \cite{ellerman-tmt}.
+
+\begin{definition}
+    The \emph{Pacioli group}, $P$, of a commutative monoid $M$ is the set of ordered pairs $\taccount{a}{b}$ with both elements in $M$,
+    under the equivalence relation $\taccount{a}{b} R \taccount{c}{d}$ when $a + d = b + c$.
+
+    Further, we define $+$ pointwise on $P$, define unary $-$ by $- \taccount{a}{b} = \taccount{b}{a}$, and binary $-$ by $u - v = u + (- v)$,
+    for all $a, b \in M$, and $u, v \in P$.
+\end{definition}
+
+\begin{definition}
+    A \emph{value space} $\V$, is the Paciloi group of a money space $\M$.
+\end{definition}
+
+In a pair $\taccount{a}{b}$ in a value space $\V$, we think of $a$ as a debit, and $b$ a credit.
+
+\begin{notation}
+    We identify a money $a$ with the pair $\taccount{a}{0}$, so that we can write
+    \begin{equation*}
+        \taccount{a}{b} = a - b.
+    \end{equation*}
+
+    This is equivalent to identifying the Pacioli group with its debit isomorphism, as defined in Ellerman, \emph{Economics, Accounting, and Property Theory} \cite{ellerman-eapt}.
+\end{notation}
+
+Note that the choice of identifying a money $a$ with the debit component of the pair is completely arbitrary,
+and we could instead use the credit component $a \mapsto \taccount{0}{a}$.
+All that would do would flip all the $+$ and $-$ signs.
+
+\begin{example}
+    Using \eqref{m-def} for $\M$, our value space is
+    \begin{equation*}
+        \V = \{ ..., -\pounds 0.02, -\pounds 0.01, \pounds 0.00, \pounds 0.01, \pounds 0.02, ... \}
+    \end{equation*}
+    where a positive amount represents a debit, and a negative amount a credit.
+\end{example}
+
+\begin{example}
+    If you have a $\pounds 10$ note, and owe a friend $\pounds 5$, then your net worth is
+    \begin{equation*}
+        \pounds 10 - \pounds 5 = \pounds 5
+    \end{equation*}
+    leaving you with $\pounds 5$.
+
+    If instead you owed your friend $\pounds 20$, then your net worth is
+    \begin{equation*}
+        \pounds 10 - \pounds 20 = -\pounds 10
+    \end{equation*}
+    leaving you $\pounds 10$ in debt.
+\end{example}

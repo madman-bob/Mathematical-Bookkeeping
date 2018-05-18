@@ -1,0 +1,31 @@
+\section{Ledgers}
+
+Now let's put it all together.
+A financial system consists of multiple transactions, so we need some sort of collection to hold them all,
+which we'll call our ledger.
+
+We could use a list to represent our ledger, but we've already captured our concept of order in temporal transactions.
+As we don't need to consider order again, we could use a set,
+but we could, in theory, have two of the exact same transaction at the exact same time.
+So we want a set with appropriate counting of duplicates.
+
+\begin{definition}
+    A \emph{ledger} is a finite\footnotemark multi-set of temporal transactions.
+\end{definition}
+\footnotetext{We could probably be less restrictive than this, but all real-world examples are finite}
+
+This ledger represents all the transactions in a financial system.
+We can now speak of things like the balance of an account, and interaction of accounts.
+
+\begin{definition}
+    The \emph{balance} $b$ of an account $A$, in a ledger $L$, is a function $\Ti \to \V$,
+    where the balance at time $\tau$ is given by
+    \begin{equation*}
+        b(\tau) = \sum_{t \in L} t(\tau)_A.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    We say two accounts $A$ and $B$ have \emph{interacted} in a ledger $L$,
+    if there is a temporal transaction $t \in L$, which involves both $A$ and $B$.
+\end{definition}

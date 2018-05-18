@@ -1,0 +1,91 @@
+\section{Tree of Accounts}
+
+Previously, we split our $\me$ account into multiple smaller accounts, to keep track of why we're making each transaction.
+But we may still want to ask what the balance of the $\me$ account is, and consider the smaller accounts as sub-accounts of $\me$.
+In turn, we may want those sub-accounts to have sub-sub-accounts, and so on, so that we may consider our accounts at varying levels of detail.
+This motivates the following definition.
+
+\begin{definition}
+    A \emph{tree of accounts} $\A$ is a rooted tree.
+    The account that is the root of $\A$ is called the \emph{balance account}.
+
+    For accounts $A$ and $B$, we say $A \le B$ if $B$ is a descendant of $A$ (that is, if $B$ is $A$, is a sub-account of $A$, a sub-sub-account of $A$, or so on).
+\end{definition}
+
+\begin{example}
+    For example, a farmer who sells his own produce at self-run farm shops may have a tree of accounts similar to
+
+    \emph{ % Change emphasis of tree back to normal inside example block
+    \Tree[.{Balance\\ Account}
+    [.{$\me$}
+    \qroof{Farm A,\\ Farm B,\\ ...}.Farms
+    \qroof{Shop A,\\ Shop B,\\ ...}.Shops
+    ]
+    [.{$\nme$} {Farmers\\ Merchants} HMRC {$\death$} ]
+    ]
+    }
+
+    Then $\operatorname{Farm~A}$ is a sub-account of $\operatorname{Farms}$, which is in turn a sub-account of $\me$.
+    So $\operatorname{Farm~A}$ is a descendant of both $\operatorname{Farms}$ and $\me$, written $\operatorname{Farms} \le \operatorname{Farm~A}$, and $\me \le \operatorname{Farm~A}$, respectively.
+\end{example}
+
+Now we can add up all the balances of the descendant accounts of an account, to find out what its balance would be, if we didn't have all of those sub-accounts.
+
+\begin{definition}
+    The \emph{total balance} $b$ of an account $A$, in a ledger $L$, is a function $\Ti \to \V$,
+    where the total balance at time $\tau$ is given by
+
+    \begin{equation*}
+        b(\tau) = \sum_{t \in L, A \le B} t(\tau)_B.
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}
+    The total balance of the balance account is $0$ at all times.
+\end{theorem}
+
+\begin{proof}
+    As the balance account $R$ is the root of the tree of accounts $\A$, then we have $R \le A$ for all accounts $A \in \A$.
+    So the total balance $b$ of $R$ at time $\tau$ is
+
+    \begin{align*}
+        b(\tau) &= \sum_{t \in L, R \le A} t(\tau)_A, && \text{by definition of total balance,} \\
+        &= \sum_{t \in L, A \in \A} t(\tau)_A, && \text{as $R$ is the root account,} \\
+        &= \sum_{t \in L} \left(\sum_{A \in \A} t(\tau)_A\right), && \text{rephrasing the above,} \\
+        &= \sum_{t \in L} 0, && \text{as each $t(\tau)_A$ is a transaction,} \\
+        &= 0.
+    \end{align*}
+\end{proof}
+
+So the balance of the balance account can be used as a checksum, to ensure that the balances of all other accounts have been calculated correctly.
+
+\begin{theorem}
+    For an account $B$, of balance $b$, that has interacted with only the descendants of an account $A$,
+    the contribution $c(\tau)$ of the total balance of $A$, at time $\tau$, by transactions involving $B$ is $- b(\tau)$.
+\end{theorem}
+
+\begin{proof}
+    Consider a transaction $t$ that involves $B$.
+    As $B$ interacts only with descendants of $A$, then $t_C = 0$ when $C \neq B$ and $A \leq C$.
+
+    So
+    \begin{equation}
+        \begin{aligned}
+            \label{blah}
+            0 &= \sum_{C \in \A} t_C, && \text{as $t$ a transaction,} \\
+            &= \sum_{A \leq C} t_C + \sum_{A \nleq C, C \neq B} t_C + t_B, && \text{splitting apart the sum,} \\
+            &= \sum_{A \leq C} t_C + t_B, && \text{as each $t_C$ is $0$ for $A \nleq C$, $C \neq B$,}
+        \end{aligned}
+    \end{equation}
+
+    giving $\sum_{A \leq C} t_C = -t_B$.
+
+    \begin{align*}
+        c(\tau) &= \sum_{t \in L, A \le C, t \text{ involves } B} t(\tau)_C, && \text{by definition of $c$} \\
+        &= \sum_{t \in L, t \text{ involves } B} \left(\sum_{A \leq C} t(\tau)_C \right), && \text{rearranging the sum,} \\
+        &= \sum_{t \in L, t \text{ involves } B} -t(\tau)_B, && \text{by \eqref{blah},} \\
+        &= - \sum_{t \in L, t \text{ involves } B} t(\tau)_B, && \text{moving the $-$ sign outside the sum,} \\
+        &= - \sum_{t \in L} t(\tau)_B, && \text{as $t(\tau)_B = 0$ if $t$ doesn't involve $B$,} \\
+        &= - b(\tau), && \text{by definition of the balance of $B$.}
+    \end{align*}
+\end{proof}

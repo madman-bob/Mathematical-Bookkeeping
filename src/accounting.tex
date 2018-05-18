@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+
+\usepackage{import}
+\usepackage{a4wide}
+\usepackage[english]{isodate}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{qtree}
+
+\newcommand{\M}{\mathcal{M}} % Money space
+\newcommand{\V}{\mathcal{V}} % Value space
+\newcommand{\A}{\mathcal{A}} % Accounts
+\newcommand{\Tr}{\mathcal{T}} % Transactions
+\newcommand{\Ti}{\mathbb{T}} % Time
+\renewcommand{\L}{\mathcal{L}} % Ledger
+
+\newcommand{\taccount}[2]{\left[\,#1\,/\!/\,#2\,\right]}
+
+\DeclareMathOperator{\sheep}{Sheep}
+
+\DeclareMathOperator{\me}{Me}
+\DeclareMathOperator{\nme}{Not~Me}
+\DeclareMathOperator{\fred}{Fred}
+\DeclareMathOperator{\death}{\textsc{Death}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{notation}{Notation}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+
+\title{A Mathematical Model of Financial Bookkeeping}
+\author{Robert Wright}
+
+\makeatletter
+\usepackage[pdftex,
+pdfauthor={\@author},
+pdfusetitle]{hyperref}
+
+\begin{document}
+    \abovedisplayskip=12pt
+    \belowdisplayskip=12pt
+    \abovedisplayshortskip=0pt
+    \belowdisplayshortskip=7pt
+
+    \begin{titlepage}
+        \maketitle
+
+        \begin{abstract}
+            In this paper we introduce a mathematical model for an entire bookkeeping system.
+            Building on the work of Ellerman, we define objects representing value, accounts, and transactions,
+            and introduce a convenient notation for each of the above.
+            This notation allows you to define transactions locally \textendash{} without knowing, a priori,
+            all possible value types, and accounts.
+            We then use these mathematical objects to formally prove known accounting results.
+
+            We also extend transactions to temporal transactions, add a tree structure to the set of accounts,
+            and create an object representing an entire ledger.
+            These allow you to express as single objects financial events that are conceptually a single event,
+            but must be expressed as multiple objects in standard financial bookkeeping
+            (such as depreciation).
+        \end{abstract}
+    \end{titlepage}
+
+    \import{./}{introduction.tex}
+    \import{./}{value-space.tex}
+    \import{./}{accounts.tex}
+    \import{./}{transactions.tex}
+    \import{./}{double-entry.tex}
+    \import{./}{time.tex}
+    \import{./}{ledgers.tex}
+    \import{./}{value-space-2.tex}
+    \import{./}{account-personification.tex}
+    \import{./}{transactions-2.tex}
+    \import{./}{accounts-tree.tex}
+    \import{./}{conclusion.tex}
+
+    \bibliographystyle{plain}
+    \bibliography{bibliography}
+\end{document}
